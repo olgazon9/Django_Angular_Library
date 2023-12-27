@@ -8,43 +8,42 @@ $bright-orange: #FFA500;
   border: 2px solid $bright-orange;
   padding: 20px;
   border-radius: 10px;
-  width: 100vw; // Width of the viewport
-  height: 100vh; // Height of the viewport
+  max-width: 300px;
+  margin: auto;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 
-  .form-wrapper {
-    max-width: 300px; // Maximum width for the form
-    width: 100%; // Take up all the available width within the form wrapper
-    margin: auto;
-
-    input, button {
-      width: 100%; // Ensures inputs and button span the full width of form wrapper
-      margin: 10px 0;
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid $bright-orange;
-    }
-
-    input {
-      background-color: white; // Field background color
-      color: $forest-green; // Field text color
-    }
-
-    button {
-      background-color: $bright-orange; // Button background color
-      color: white; // Button text color
-      &:hover {
-        background-color: darken($bright-orange, 10%);
-      }
-    }
-
-    .register-success-message {
-      color: $forest-green;
-      margin-top: 10px;
-    }
+  input, button {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
   }
 
-  // Add more styles as needed
+  input {
+    background-color: white;
+    color: $forest-green;
+  }
+
+  button {
+    background-color: $bright-orange;
+    color: white;
+    &:hover {
+      background-color: darken($bright-orange, 10%);
+    }
+  }
+  .register-image {
+    display: block; // Makes it a block element
+    margin: 0 auto; // Centers the image horizontally
+    max-width: 100%; // Ensures the image is not larger than its container
+    height: auto; // Maintains the aspect ratio of the image
 }
+
+  // You can add additional styles specific to the register form here
+}
+
+// Add any global styles or additional component styles as needed
+body {
+    background-color: $dusty-blue;
+  }
