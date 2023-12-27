@@ -1,0 +1,50 @@
+$dusty-blue: #6699CC;
+$forest-green: #228B22;
+$bright-orange: #FFA500;
+
+.register-container {
+  background-color: $dusty-blue;
+  color: $forest-green;
+  border: 2px solid $bright-orange;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100vw; // Width of the viewport
+  height: 100vh; // Height of the viewport
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .form-wrapper {
+    max-width: 300px; // Maximum width for the form
+    width: 100%; // Take up all the available width within the form wrapper
+    margin: auto;
+
+    input, button {
+      width: 100%; // Ensures inputs and button span the full width of form wrapper
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid $bright-orange;
+    }
+
+    input {
+      background-color: white; // Field background color
+      color: $forest-green; // Field text color
+    }
+
+    button {
+      background-color: $bright-orange; // Button background color
+      color: white; // Button text color
+      &:hover {
+        background-color: darken($bright-orange, 10%);
+      }
+    }
+
+    .register-success-message {
+      color: $forest-green;
+      margin-top: 10px;
+    }
+  }
+
+  // Add more styles as needed
+}

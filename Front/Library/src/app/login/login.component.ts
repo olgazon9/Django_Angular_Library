@@ -15,9 +15,13 @@ export class LoginComponent {
 
   onLogin() {
     this.loginService.login(this.username, this.password).subscribe(
-      data => {
+      (data: any) => { // Cast data as 'any' to access 'access' property
         console.log('Login successful');
         this.loginSuccess = true; // Set login success to true
+
+        // Store the token in session storage
+        sessionStorage.setItem('token', data.access);
+
         // Handle successful login here
       },
       error => {

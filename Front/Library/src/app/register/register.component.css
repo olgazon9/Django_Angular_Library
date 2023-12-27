@@ -1,0 +1,40 @@
+.register-container {
+  background-color: #6699CC;
+  color: #228B22;
+  border: 2px solid #FFA500;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.register-container .form-wrapper {
+  max-width: 300px;
+  width: 100%;
+  margin: auto;
+}
+.register-container .form-wrapper input, .register-container .form-wrapper button {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #FFA500;
+}
+.register-container .form-wrapper input {
+  background-color: white;
+  color: #228B22;
+}
+.register-container .form-wrapper button {
+  background-color: #FFA500;
+  color: white;
+}
+.register-container .form-wrapper button:hover {
+  background-color: #cc8400;
+}
+.register-container .form-wrapper .register-success-message {
+  color: #228B22;
+  margin-top: 10px;
+}
+/*# sourceMappingURL=register.component.css.map */

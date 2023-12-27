@@ -11,6 +11,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { BooksComponent } from './books/books.component';
 import { LoanersComponent } from './loaners/loaners.component';
 import { LoansComponent } from './loans/loans.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { LoansComponent } from './loans/loans.component';
     NavbarComponent,
     BooksComponent,
     LoanersComponent,
-    LoansComponent
+    LoansComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
