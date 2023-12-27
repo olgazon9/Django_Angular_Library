@@ -1,0 +1,38 @@
+$dusty-blue: #6699CC;
+$forest-green: #228B22;
+$bright-orange: #FFA500;
+
+.login-container {
+  background-color: $dusty-blue;
+  color: $forest-green;
+  border: 2px solid $bright-orange;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 300px;
+  margin: auto;
+  display: flex; // Enable Flexbox
+  flex-direction: column; // Stack children vertically
+  align-items: center; // Center items horizontally
+
+  input, button {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%; // Make inputs and button take full width of container
+  }
+
+  button {
+    background-color: $bright-orange;
+    color: white;
+    &:hover {
+      background-color: darken($bright-orange, 10%);
+    }
+  }
+
+  .login-success-message {
+    color: $forest-green;
+    margin-top: 10px;
+  }
+
+  // Add more styles as needed
+}

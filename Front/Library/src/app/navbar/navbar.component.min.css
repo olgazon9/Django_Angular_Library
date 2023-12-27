@@ -1,0 +1,2 @@
+nav{background-color:orange;padding:10px 20px}nav ul{list-style:none;margin:0;padding:0;display:flex;justify-content:space-around}nav ul li a{color:#69c;text-decoration:none;padding:5px 10px;border-radius:5px}nav ul li a:hover{background-color:#228b22;color:#fff}
+/*# sourceMappingURL=navbar.component.min.css.map */
