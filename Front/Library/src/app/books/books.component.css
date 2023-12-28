@@ -22,6 +22,7 @@
   padding: 10px;
   border-radius: 5px;
   width: 100%;
+  box-sizing: border-box;
 }
 .book-form-container button, .book-list-container button {
   background-color: #FFA500;
@@ -34,6 +35,7 @@
 ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 ul li {
   background-color: #8cb3d9;

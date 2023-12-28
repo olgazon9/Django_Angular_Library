@@ -8,7 +8,7 @@ import { Book, BookService } from '../books.service';
 })
 export class BooksComponent implements OnInit {
   books: Book[] = [];
-  selectedBook: Book | null = null;
+  selectedBook: Book = this.getNewBook(); // Initialize with a new book
   isEditMode = false;
 
   constructor(private bookService: BookService) {}
@@ -23,24 +23,14 @@ export class BooksComponent implements OnInit {
     });
   }
 
-  selectBook(book: Book | null): void {
-    if (book) {
-      this.selectedBook = { ...book };
-    } else {
-      // Initialize a new book with default values
-      this.selectedBook = {
-        title: '',
-        author: '',
-        genre: '',
-        year_published: new Date().getFullYear() // or some default value
-      };
-    }
+  selectBook(book: Book): void {
+    this.selectedBook = { ...book };
     this.isEditMode = true;
   }
 
   saveBook(book: Book): void {
-    if (book && book.id) {
-      this.bookService.updateBook(book.id, book).subscribe(() => {
+    if (this.isEditMode) {
+      this.bookService.updateBook(book.id!, book).subscribe(() => {
         this.loadBooks();
       });
     } else {
@@ -52,15 +42,22 @@ export class BooksComponent implements OnInit {
   }
 
   deleteBook(book: Book): void {
-    if (book && book.id) {
-      this.bookService.deleteBook(book.id).subscribe(() => {
-        this.loadBooks();
-      });
-    }
+    this.bookService.deleteBook(book.id!).subscribe(() => {
+      this.loadBooks();
+    });
   }
 
   cancelEdit(): void {
-    this.selectedBook = null;
+    this.selectedBook = this.getNewBook();
     this.isEditMode = false;
+  }
+
+  private getNewBook(): Book {
+    return {
+      title: '',
+      author: '',
+      genre: '',
+      year_published: new Date().getFullYear()
+    };
   }
 }

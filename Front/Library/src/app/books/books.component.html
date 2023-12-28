@@ -1,6 +1,7 @@
 <div class="books-container">
-    <div *ngIf="selectedBook" class="book-form-container">
-      <h2>{{ selectedBook.id ? 'Edit Book' : 'Add New Book' }}</h2>
+    <!-- Book Form Container -->
+    <div class="book-form-container">
+      <h2>{{ isEditMode ? 'Edit Book' : 'Add New Book' }}</h2>
       <form (ngSubmit)="saveBook(selectedBook)">
         <input type="text" [(ngModel)]="selectedBook.title" name="title" placeholder="Title" required>
         <input type="text" [(ngModel)]="selectedBook.author" name="author" placeholder="Author" required>
@@ -10,7 +11,8 @@
         <button type="button" (click)="cancelEdit()">Cancel</button>
       </form>
     </div>
-  
+
+    <!-- Books List Container -->
     <div class="book-list-container">
       <h2>Books List</h2>
       <ul>
@@ -21,7 +23,4 @@
         </li>
       </ul>
     </div>
-  
-    <button (click)="selectBook(null)">Add New Book</button>
-  </div>
-  
+</div>
