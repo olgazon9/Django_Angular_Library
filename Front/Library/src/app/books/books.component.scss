@@ -1,0 +1,50 @@
+$dusty-blue: #6699CC;
+$forest-green: #228B22;
+$bright-orange: #FFA500;
+
+.books-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.book-form-container, .book-list-container {
+  background-color: $dusty-blue;
+  color: $forest-green;
+  border: 2px solid $bright-orange;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 300px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  input, button {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+  }
+
+  button {
+    background-color: $bright-orange;
+    color: white;
+    &:hover {
+      background-color: darken($bright-orange, 10%);
+    }
+  }
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+
+  li {
+    background-color: lighten($dusty-blue, 10%);
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+  }
+}
