@@ -1,1 +1,22 @@
-<p>loaners works!</p>
+<div class="loaners-container">
+    <div class="loaner-form-container">
+      <form *ngIf="selectedLoaner">
+        <input type="text" [(ngModel)]="selectedLoaner.name" placeholder="Name" name="name" />
+        <input type="number" [(ngModel)]="selectedLoaner.age" placeholder="Age" name="age" />
+        <input type="email" [(ngModel)]="selectedLoaner.email" placeholder="Email" name="email" />
+        <button (click)="saveLoaner(selectedLoaner)">Save</button>
+        <button (click)="cancelEdit()">Cancel</button>
+      </form>
+    </div>
+  
+    <div class="loaner-list-container">
+      <ul>
+        <li *ngFor="let loaner of loaners">
+          {{ loaner.name }} ({{ loaner.age }}) - {{ loaner.email }}
+          <button (click)="selectLoaner(loaner)">Edit</button>
+          <button (click)="deleteLoaner(loaner)">Delete</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
