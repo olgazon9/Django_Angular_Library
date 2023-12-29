@@ -5,7 +5,8 @@ from .models import Book, Loan, Loaner
 class LoanSerializer(serializers.ModelSerializer):
     class Meta:
         model = Loan
-        fields = ['id', 'book', 'loaner', 'loan_date']
+        fields = ['id', 'book', 'loaner', 'loan_date', 'returned', 'return_date']
+
 class LoanerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Loaner

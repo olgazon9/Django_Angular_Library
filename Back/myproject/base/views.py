@@ -1,4 +1,5 @@
 from datetime import date, timedelta
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from rest_framework import status, generics, permissions, viewsets
 from rest_framework.response import Response
@@ -9,12 +10,29 @@ from .models import Book, Loan, Loaner
 from .serializers import LoanSerializer, LoanerSerializer, UserSerializer, BookSerializer
 from .serializers import serializers
 
+
+class DeleteLoanView(APIView):
+    def delete(self, request, pk):
+        loan = get_object_or_404(Loan, pk=pk)
+        loan.delete()
+        return JsonResponse({'message': 'Loan deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+    
 class LateLoanListView(generics.ListAPIView):
     serializer_class = LoanSerializer
 
     def get_queryset(self):
         return Loan.objects.filter(loan_date__lte=date.today() - timedelta(days=10), returned=False)
 
+class ReturnBookView(APIView):
+    def post(self, request, pk):
+        loan = get_object_or_404(Loan, pk=pk)
+        if not loan.returned:
+            loan.returned = True
+            loan.return_date = date.today()
+            loan.save()
+            return Response({'status': 'Book returned'}, status=status.HTTP_200_OK)
+        else:
+            return Response({'error': 'Book already returned'}, status=status.HTTP_400_BAD_REQUEST)
 class ReturnBookView(APIView):
     def post(self, request, pk):
         loan = get_object_or_404(Loan, pk=pk)

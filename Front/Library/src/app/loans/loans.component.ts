@@ -1,10 +1,87 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { LoanService } from '../loans.service';
+
+interface Loan {
+    id: number;
+    book: number;
+    loaner: number;
+    loan_date: string;
+    returned: boolean;
+}
+
+interface Book {
+    id: number;
+    title: string;
+}
+
+interface Loaner {
+    id: number;
+    name: string;
+}
 
 @Component({
-  selector: 'app-loans',
-  templateUrl: './loans.component.html',
-  styleUrl: './loans.component.scss'
+    selector: 'app-loans',
+    templateUrl: './loans.component.html',
+    styleUrls: ['./loans.component.css']
 })
-export class LoansComponent {
+export class LoansComponent implements OnInit {
+    loans: Loan[] = [];
+    books: Book[] = [];
+    loaners: Loaner[] = [];
+    newLoan = { book: '', loaner: '' };
 
+    constructor(private loanService: LoanService) {}
+
+    ngOnInit(): void {
+        this.loadBooks();
+        this.loadLoaners();
+        this.loadLoans();
+    }
+
+    loadLoans(): void {
+      this.loanService.getLoans().subscribe(data => {
+          console.log('Loans fetched:', data); // Add this line to log the fetched data
+          this.loans = data;
+      }, error => console.log(error));
+  }
+  
+
+    loadBooks(): void {
+        this.loanService.getBooks().subscribe(data => {
+            this.books = data;
+        }, error => console.log(error));
+    }
+
+    loadLoaners(): void {
+        this.loanService.getLoaners().subscribe(data => {
+            this.loaners = data;
+        }, error => console.log(error));
+    }
+
+    onSubmit(): void {
+        this.loanService.createLoan(this.newLoan).subscribe(() => {
+            this.loadLoans();
+        }, error => console.log(error));
+    }
+
+    returnLoan(id: number): void {
+      this.loanService.returnBook(id).subscribe(() => {
+          const loanToUpdate = this.loans.find(loan => loan.id === id);
+          if (loanToUpdate) {
+              loanToUpdate.returned = true;
+              console.log(`Loan with ID ${id} marked as returned`); // Add this line to log the action
+          }
+      }, error => console.log(error));
+  }
+  
+
+    getBookTitle(bookId: number): string {
+        const book = this.books.find(b => b.id === bookId);
+        return book ? book.title : 'Unknown Book';
+    }
+
+    getLoanerName(loanerId: number): string {
+        const loaner = this.loaners.find(l => l.id === loanerId);
+        return loaner ? loaner.name : 'Unknown Loaner';
+    }
 }

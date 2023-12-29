@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import (
+    DeleteLoanView,
     LateLoanListView,
     LoanCreateView,
     LoanDetailView,
@@ -17,6 +18,7 @@ from .views import (
     BookDeleteView,
     BookListView,
     ReturnBookView, 
+    
 )
 
 urlpatterns = [
@@ -42,6 +44,9 @@ urlpatterns = [
     path('loans/<int:pk>/', LoanDetailView.as_view(), name='loan-detail'),
     path('loans/<int:pk>/return/', ReturnBookView.as_view(), name='return-book'),
     path('loans/late/', LateLoanListView.as_view(), name='late-loan-list'),
-
-
+    path('loans/delete/<int:pk>/', DeleteLoanView.as_view(), name='delete-loan'),
 ]
+
+
+
+

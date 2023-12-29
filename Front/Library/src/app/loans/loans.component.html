@@ -1,1 +1,35 @@
-<p>loans works!</p>
+<!-- Loan Creation Form -->
+<div class="loan-form-container">
+    <h2>Create Loan</h2>
+    <form (ngSubmit)="onSubmit()">
+        <div>
+            <label for="book">Book:</label>
+            <select id="book" [(ngModel)]="newLoan.book" name="book">
+                <option *ngFor="let book of books" [value]="book.id">{{ book.title }}</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="loaner">Loaner:</label>
+            <select id="loaner" [(ngModel)]="newLoan.loaner" name="loaner">
+                <option *ngFor="let loaner of loaners" [value]="loaner.id">{{ loaner.name }}</option>
+            </select>
+        </div>
+
+        <button type="submit">Create Loan</button>
+    </form>
+</div>
+
+<!-- Loan List -->
+<div class="loans-list-container">
+    <h2>All Loans</h2>
+    <ul class="loan-list">
+        <li *ngFor="let loan of loans">
+            {{ getBookTitle(loan.book) }} - {{ getLoanerName(loan.loaner) }}
+            <!-- Display the button only if the book has not been returned -->
+            <button *ngIf="!loan.returned" (click)="returnLoan(loan.id)">Return</button>
+            <!-- Display 'Returned' text if the book has been returned -->
+            <span *ngIf="loan.returned">Returned</span>
+        </li>
+    </ul>
+</div>
