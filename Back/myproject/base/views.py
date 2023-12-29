@@ -21,18 +21,9 @@ class LateLoanListView(generics.ListAPIView):
     serializer_class = LoanSerializer
 
     def get_queryset(self):
-        return Loan.objects.filter(loan_date__lte=date.today() - timedelta(days=10), returned=False)
+        return Loan.objects.filter(loan_date__lte=date.today() - timedelta(days=1), returned=False)
 
-class ReturnBookView(APIView):
-    def post(self, request, pk):
-        loan = get_object_or_404(Loan, pk=pk)
-        if not loan.returned:
-            loan.returned = True
-            loan.return_date = date.today()
-            loan.save()
-            return Response({'status': 'Book returned'}, status=status.HTTP_200_OK)
-        else:
-            return Response({'error': 'Book already returned'}, status=status.HTTP_400_BAD_REQUEST)
+
 class ReturnBookView(APIView):
     def post(self, request, pk):
         loan = get_object_or_404(Loan, pk=pk)

@@ -10,7 +10,7 @@ class Loan(models.Model):
 
     @property
     def is_late(self):
-        return not self.returned and date.today() > self.loan_date + timedelta(days=10)
+        return not self.returned and date.today() > self.loan_date + timedelta(days=1)
 
     def __str__(self):
         return f"{self.book.title} loaned to {self.loaner.name}"

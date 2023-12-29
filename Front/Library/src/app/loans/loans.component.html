@@ -26,10 +26,19 @@
     <ul class="loan-list">
         <li *ngFor="let loan of loans">
             {{ getBookTitle(loan.book) }} - {{ getLoanerName(loan.loaner) }}
-            <!-- Display the button only if the book has not been returned -->
             <button *ngIf="!loan.returned" (click)="returnLoan(loan.id)">Return</button>
-            <!-- Display 'Returned' text if the book has been returned -->
             <span *ngIf="loan.returned">Returned</span>
         </li>
     </ul>
+</div>
+
+<!-- Late Loan List -->
+<div class="loans-list-container">
+  <h2>Late Loans</h2>
+  <ul class="loan-list">
+    <li *ngFor="let loan of lateLoans">
+      {{ getBookTitle(loan.book) }} - {{ getLoanerName(loan.loaner) }}
+      <span class="late">Late</span>
+    </li>
+  </ul>
 </div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,25 +10,42 @@ export class LoanService {
 
   constructor(private http: HttpClient) { }
 
+  private getHeaders(): HttpHeaders {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in session storage.');
+      return new HttpHeaders();
+    }
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    return headers;
+  }
+
   getLoans(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
+    return this.http.get(`${this.baseUrl}`, { headers: this.getHeaders() });
+  }
+
+  getLateLoans(): Observable<any> {
+    return this.http.get(`${this.baseUrl}late/`, { headers: this.getHeaders() });
   }
 
   getBooks(): Observable<any> {
-    // Adjust this URL as per your API endpoint for books
-    return this.http.get('http://127.0.0.1:8000/books/');
+    return this.http.get('http://127.0.0.1:8000/books/', { headers: this.getHeaders() });
   }
 
   getLoaners(): Observable<any> {
-    // Adjust this URL as per your API endpoint for loaners
-    return this.http.get('http://127.0.0.1:8000/loaners/');
+    return this.http.get('http://127.0.0.1:8000/loaners/', { headers: this.getHeaders() });
   }
 
   createLoan(loan: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}create/`, loan);
+    return this.http.post(`${this.baseUrl}create/`, loan, { headers: this.getHeaders() });
   }
 
   returnBook(loanId: number): Observable<any> {
-    return this.http.post(`${this.baseUrl}${loanId}/return/`, {});
+    return this.http.post(`${this.baseUrl}${loanId}/return/`, {}, { headers: this.getHeaders() });
   }
 }

@@ -1,53 +1,9 @@
-// Define the color variables
 $dusty-blue: #6699CC;
 $forest-green: #228B22;
 $bright-orange: #FFA500;
 
-// Style for the main container of the loans section
-.loans-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-}
-
-// Style for the loan creation form
-.loan-form-container {
+.loan-form-container, .loans-list-container {
   background-color: $dusty-blue;
-  color: $forest-green;
-  border: 2px solid $bright-orange;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 300px;
-  margin: 20px auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  label {
-    margin-bottom: 5px;
-  }
-
-  select, button {
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  button {
-    background-color: $bright-orange;
-    color: white;
-    &:hover {
-      background-color: darken($bright-orange, 10%);
-    }
-  }
-}
-
-// Style for the loan list
-.loan-list-container {
-  background-color: lighten($dusty-blue, 10%);
   color: $forest-green;
   border: 2px solid $bright-orange;
   padding: 20px;
@@ -56,30 +12,55 @@ $bright-orange: #FFA500;
   margin: 20px auto;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
+}
 
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
+button {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: $bright-orange;
+  color: white;
+  &:hover {
+    background-color: darken($bright-orange, 10%);
+  }
+}
 
-    li {
-      background-color: lighten($dusty-blue, 20%);
-      margin: 10px 0;
-      padding: 10px;
-      border-radius: 5px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+ul.loan-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%; // Ensures ul takes the full width of its container
 
-      button {
-        background-color: $bright-orange;
-        color: white;
-        &:hover {
-          background-color: darken($bright-orange, 10%);
-        }
+  li {
+    background-color: lighten($dusty-blue, 10%);
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+
+    // Style for the "Return" button
+    button {
+      background-color: $bright-orange;
+      color: white;
+      border: none;
+      cursor: pointer;
+      &:hover {
+        background-color: darken($bright-orange, 10%);
       }
+    }
+
+    // Style for the "Returned" message
+    span:not(.late) { // Exclude the .late class to avoid green color on "Returned"
+      color: $forest-green;
+      font-weight: bold;
+    }
+    
+    // Style for the "Late" message
+    span.late {
+      color: red; // Style for late loans, red for visibility
+      font-weight: bold;
     }
   }
 }
