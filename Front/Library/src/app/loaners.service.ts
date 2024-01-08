@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 export interface Loaner {
   id?: number;
   name: string;
-  age: number | null;  // Allow null as well
+  age: number | null; // Allow null as well
   email: string;
 }
 
@@ -13,23 +13,24 @@ export interface Loaner {
   providedIn: 'root'
 })
 export class LoanerService {
-  private apiBaseUrl = 'http://localhost:8000'; // Replace with your API base URL
+  // Using hardcoded URL for loaners
+  private loanersUrl = 'http://127.0.0.1:8000/loaners/';
 
   constructor(private http: HttpClient) {}
 
   getLoaners(): Observable<Loaner[]> {
-    return this.http.get<Loaner[]>(`${this.apiBaseUrl}/loaners/`);
+    return this.http.get<Loaner[]>(this.loanersUrl);
   }
 
   createLoaner(loaner: Loaner): Observable<Loaner> {
-    return this.http.post<Loaner>(`${this.apiBaseUrl}/loaners/create/`, loaner);
+    return this.http.post<Loaner>(`${this.loanersUrl}create/`, loaner);
   }
 
   updateLoaner(id: number, loaner: Loaner): Observable<Loaner> {
-    return this.http.put<Loaner>(`${this.apiBaseUrl}/loaners/${id}/update/`, loaner);
+    return this.http.put<Loaner>(`${this.loanersUrl}${id}/update/`, loaner);
   }
 
   deleteLoaner(id: number): Observable<any> {
-    return this.http.delete(`${this.apiBaseUrl}/loaners/${id}/delete/`);
+    return this.http.delete(`${this.loanersUrl}${id}/delete/`);
   }
 }

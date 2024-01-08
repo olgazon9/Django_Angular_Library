@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface Book {
   id?: number;
@@ -14,69 +13,41 @@ export interface Book {
 @Injectable({
   providedIn: 'root'
 })
-export class BookService {
-  private apiBaseUrl = 'http://localhost:8000'; // Replace with your API base URL
+export class BooksService {
+  // Using hardcoded URL for fetching books
+  private booksUrl = 'http://127.0.0.1:8000/books/';
 
   constructor(private http: HttpClient) {}
 
   private getHeaders(): HttpHeaders {
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem('token'); // Adjust if you're storing the token elsewhere
     if (!token) {
       console.error('No token found in session storage.');
       return new HttpHeaders();
     }
-
-    // Assuming the backend expects a 'Bearer' token. Adjust if necessary.
-    const headers = new HttpHeaders({
+    return new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}` // Changed from 'Token' to 'Bearer'
+      'Authorization': `Bearer ${token}`
     });
-
-    return headers;
   }
 
-  getBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(`${this.apiBaseUrl}/books/`, { headers: this.getHeaders() })
-      .pipe(
-        catchError(this.handleError)
-      );
+  getBooks(): Observable<any> {
+    return this.http.get(this.booksUrl, { headers: this.getHeaders() });
   }
 
   getBookById(id: number): Observable<Book> {
-    return this.http.get<Book>(`${this.apiBaseUrl}/books/${id}/`, { headers: this.getHeaders() })
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.get<Book>(`${this.booksUrl}${id}/`, { headers: this.getHeaders() });
   }
 
   createBook(book: Book): Observable<Book> {
-    return this.http.post<Book>(`${this.apiBaseUrl}/books/create/`, book, { headers: this.getHeaders() })
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.post<Book>(`${this.booksUrl}create/`, book, { headers: this.getHeaders() });
   }
 
   updateBook(id: number, book: Book): Observable<Book> {
-    return this.http.put<Book>(`${this.apiBaseUrl}/books/${id}/update/`, book, { headers: this.getHeaders() })
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.put<Book>(`${this.booksUrl}${id}/update/`, book, { headers: this.getHeaders() });
   }
 
   deleteBook(id: number): Observable<any> {
-    return this.http.delete(`${this.apiBaseUrl}/books/${id}/delete/`, { headers: this.getHeaders() })
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    console.error('Server Error:', error);
-    if (error.error instanceof ErrorEvent) {
-      console.error('Client-side error:', error.error.message);
-    } else {
-      console.error(`Backend returned code ${error.status}, ` + `body was: ${error.error}`);
-    }
-    return throwError('Something bad happened; please try again later.');
+    return this.http.delete(`${this.booksUrl}${id}/delete/`, { headers: this.getHeaders() });
   }
 }
